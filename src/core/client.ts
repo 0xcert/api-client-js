@@ -101,6 +101,10 @@ export class Client {
    * Initializes client and gets authenticated account's data.
    */
   public async init() {
+    if (!this.provider.gatewayConfig) {
+      throw new ClientError(ClientErrorCode.PROVIDER_GATEWAY_CONFIG_NOT_SET);
+    }
+
     let msg = 'I accept 0xcert terms of use.';
     if (this.provider.signMethod === SignMethod.ETH_SIGN) {
       msg = `0x${await sha(256, msg)}`;
