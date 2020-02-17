@@ -10,4 +10,5 @@ export default {
   [ClientErrorCode.PAYER_NOT_SPECIFIED]: 'Payer must be specified if `wildcardSigner` tag is set to false.',
   [ClientErrorCode.PAYER_NOT_LISTED_AS_ORDER_SIGNER]: 'Payer must be listed as order\'s signer.',
   [ClientErrorCode.ORDER_FETCHING_FAILED]: 'There was a problem while fetching order data.',
+  [ClientErrorCode.ACTIONS_NOT_SPECIFIED]: 'Order creation failed because there are no order `actions` specified.',
 };
