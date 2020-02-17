@@ -80,6 +80,11 @@ export class OrdersController {
     }
     const orderGateway = new Gateway(this.context.provider);
 
+    // Check if there are any actions specified in order.
+    if (order.actions.length === 0) {
+      throw new ClientError(ClientErrorCode.ACTIONS_NOT_SPECIFIED);
+    }
+
     // Checks if payer is specified if `wildcardSigner` is set to `false`.
     if (!order.payerId && !order.wildcardSigner) {
       throw new ClientError(ClientErrorCode.PAYER_NOT_SPECIFIED);
@@ -172,9 +177,10 @@ export class OrdersController {
       }
     }
 
-    // Add order payment action.
+    // Set expiration.
     const expiration = Date.now() + 172800000; // 2 days
 
+    // Add order payment action.
     orderActions.push({
       kind: ActionsOrderActionKind.TRANSFER_VALUE,
       senderId: order.payerId,
