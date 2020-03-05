@@ -1,6 +1,7 @@
 import { GenericProvider, SignMethod } from '@0xcert/ethereum-generic-provider';
 import { sha } from '@0xcert/utils';
 import { AccountsController } from './controllers/accounts-controller';
+import { ApprovalsController } from './controllers/approvals-controller';
 import { DeploymentsController } from './controllers/deployments-controller';
 import { LedgersController } from './controllers/ledgers-controller';
 import { OrdersController } from './controllers/orders-controller';
@@ -8,10 +9,10 @@ import { RequestsController } from './controllers/requests-controller';
 import { StatsController } from './controllers/stats-controller';
 import { ClientError } from './helpers/client-error';
 import clientFetch from './helpers/client-fetch';
-import { AccountInformation, ActionsOrder, AssetLedgerDeploymentData, ClientErrorCode,
-  ClientOptions, DefaultListingOptions, GetDeploymentsOptions,
-  GetLedgersAbilitiesOptions, GetLedgersAccountsOptions, GetLedgersAssetsOptions, GetLedgersOptions,
-  GetOrdersOptions, GetRequestsOptions, GetStatsTickersOptions, GetStatsTrafficOptions, Payment, Priority, WebhookEventKind } from './types';
+import { AccountInformation, ActionsOrder, AssetApproveData, AssetLedgerDeploymentData,
+  ClientErrorCode, ClientOptions, DefaultListingOptions,
+  GetApprovalsOptions, GetDeploymentsOptions, GetLedgersAbilitiesOptions, GetLedgersAccountsOptions,
+  GetLedgersAssetsOptions, GetLedgersOptions, GetOrdersOptions, GetRequestsOptions, GetStatsTickersOptions, GetStatsTrafficOptions, Payment, Priority, WebhookEventKind } from './types';
 
 /**
  * Client class.
@@ -42,6 +43,7 @@ export class Client {
     assetRevokeCost: null,
     assetUpdateCost: null,
     assetDestroyCost: null,
+    assetApproveCost: null,
   };
 
   /**
@@ -58,6 +60,11 @@ export class Client {
    * Deployments controller class instance.
    */
   protected deploymentsController: DeploymentsController;
+
+  /**
+   * Approvals controller class instance.
+   */
+  protected approvalsController: ApprovalsController;
 
   /**
    * Orders controller class instance.
@@ -141,9 +148,11 @@ export class Client {
     this.payment.assetRevokeCost = data.payment.assetRevokeCost;
     this.payment.assetUpdateCost = data.payment.assetUpdateCost;
     this.payment.assetDestroyCost = data.payment.assetDestroyCost;
+    this.payment.assetApproveCost = data.payment.approveCost;
 
     this.accountsController = new AccountsController(this);
     this.deploymentsController = new DeploymentsController(this);
+    this.approvalsController = new ApprovalsController(this);
     this.ordersController = new OrdersController(this);
     this.ledgersController = new LedgersController(this);
     this.statsController = new StatsController(this);
@@ -212,6 +221,31 @@ export class Client {
    */
   public async createDeployment(deployData: AssetLedgerDeploymentData, priority: Priority) {
     return this.deploymentsController.createDeployment(deployData, priority);
+  }
+
+  /**
+   * Returns currently authenticated account's approvals.
+   * @param options Query listing options.
+   */
+  public async getApprovals(options: GetApprovalsOptions = {}) {
+    return this.approvalsController.getApprovals(options);
+  }
+
+  /**
+   * Returns currently authenticated account's approval by approvalRef.
+   * @param approvalRef Approval reference.
+   */
+  public async getApproval(approvalRef: string) {
+    return this.approvalsController.getApproval(approvalRef);
+  }
+
+  /**
+   * Creates new approval.
+   * @param approveData Approve data.
+   * @param priority Priority.
+   */
+  public async createApproval(approveData: AssetApproveData, priority: Priority) {
+    return this.approvalsController.createApproval(approveData, priority);
   }
 
   /**

@@ -34,6 +34,27 @@ export enum AssetLedgerCapability {
 }
 
 /**
+ * Approve data definition,
+ */
+export interface AssetApproveData {
+
+  /**
+   * Address of asset ledger we are assigning approval to.
+   */
+  ledgerId: string;
+
+  /**
+   * Operator field.
+   */
+  receiverId: string;
+
+  /**
+   * isOperator field..
+   */
+  approve: boolean;
+}
+
+/**
  * Asset ledger deployment definition.
  */
 export interface AssetLedgerDeploymentData {
@@ -400,6 +421,15 @@ export interface GetDeploymentsOptions extends DefaultListingOptions {
 }
 
 /**
+ * Approvals listing options.
+ */
+export interface GetApprovalsOptions extends DefaultListingOptions {
+  filterIds?: string[];
+  statuses?: RequestStatus[];
+  sort?: DeploymentSort;
+}
+
+/**
  * Ledgers listing options.
  */
 export interface GetLedgersOptions extends DefaultListingOptions {
@@ -505,6 +535,11 @@ export interface Payment {
    * Cost of destroying asset.
    */
   assetDestroyCost: string;
+
+  /**
+   * Cost of approving assets.
+   */
+  assetApproveCost: string;
 
   /**
    * Address of token for payment.
