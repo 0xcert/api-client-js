@@ -442,7 +442,7 @@ export interface GetDeploymentsOptions extends DefaultListingOptions {
 export interface GetApprovalsOptions extends DefaultListingOptions {
   filterIds?: string[];
   statuses?: RequestStatus[];
-  sort?: DeploymentSort;
+  sort?: ApprovalSort;
 }
 
 /**
@@ -693,6 +693,14 @@ export enum TickerSort {
  * Deployment requests sorting options.
  */
 export enum DeploymentSort {
+  CREATED_AT_ASC = 1,
+  CREATED_AT_DESC = 2,
+}
+
+/**
+ * Approval requests sorting options.
+ */
+export enum ApprovalSort {
   CREATED_AT_ASC = 1,
   CREATED_AT_DESC = 2,
 }
