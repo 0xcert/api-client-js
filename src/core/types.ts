@@ -34,7 +34,7 @@ export enum AssetLedgerCapability {
 /**
  * List of available provider sign methods.
  */
-export declare enum SignMethod {
+export enum SignMethod {
   ETH_SIGN = 0,
   TREZOR = 1,
   NO_PREFIX = 2,
