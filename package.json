@@ -87,7 +87,6 @@
   "dependencies": {
     "@0xcert/cert": "2.0.1",
     "@0xcert/ethereum-gateway": "2.0.1",
-    "@0xcert/ethereum-generic-provider": "2.0.1",
     "bignumber.js": "9.0.0",
     "node-fetch": "2.6.0"
   }
