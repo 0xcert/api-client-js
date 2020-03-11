@@ -1,4 +1,3 @@
-import { GenericProvider, SignMethod } from '@0xcert/ethereum-generic-provider';
 import { sha } from '@0xcert/utils';
 import { AccountsController } from './controllers/accounts-controller';
 import { ApprovalsController } from './controllers/approvals-controller';
@@ -12,7 +11,7 @@ import clientFetch from './helpers/client-fetch';
 import { AccountInformation, ActionsOrder, AssetApproveData, AssetLedgerDeploymentData, ClientErrorCode,
   ClientOptions, DappValueApproveData, DefaultListingOptions, GetApprovalsOptions, GetDeploymentsOptions, GetLedgersAbilitiesOptions,
   GetLedgersAccountsOptions, GetLedgersAssetsOptions, GetLedgersOptions, GetOrdersOptions, GetRequestsOptions, GetStatsTickersOptions,
-  GetStatsTrafficOptions, Payment, Priority, WebhookEventKind } from './types';
+  GetStatsTrafficOptions, Payment, Priority, SignMethod, WebhookEventKind } from './types';
 
 /**
  * Client class.
@@ -22,7 +21,7 @@ export class Client {
   /**
    * Instance of 0xcert framework provider that will be used for message signing.
    */
-  public provider: GenericProvider;
+  public provider: any;
 
   /**
    * API url.

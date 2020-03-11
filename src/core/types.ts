@@ -1,5 +1,3 @@
-import { GenericProvider } from '@0xcert/ethereum-generic-provider';
-
 /**
  * Client error code.
  */
@@ -31,6 +29,16 @@ export enum AssetLedgerCapability {
   UPDATE_ASSET = 2,
   REVOKE_ASSET = 4,
   TOGGLE_TRANSFERS = 3,
+}
+
+/**
+ * List of available provider sign methods.
+ */
+export declare enum SignMethod {
+  ETH_SIGN = 0,
+  TREZOR = 1,
+  NO_PREFIX = 2,
+  PERSONAL_SIGN = 3,
 }
 
 /**
@@ -365,7 +373,7 @@ export interface ClientOptions {
   /**
    * Instance of 0xcert framework provider that will be used for message signing.
    */
-  provider: GenericProvider;
+  provider: any;
 
   /**
    * Url to 0xcert api. Defaults to https://api.0xcert.org.
