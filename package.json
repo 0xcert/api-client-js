@@ -1,6 +1,6 @@
 {
   "name": "@0xcert/client",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "0xcert API client.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
