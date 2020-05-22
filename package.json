@@ -81,7 +81,13 @@
     "solc": "0.6.1",
     "ts-node": "8.10.1",
     "typescript": "3.8.3",
-    "tslint": "6.1.2",
+    "@typescript-eslint/eslint-plugin": "2.34.0",
+    "@typescript-eslint/parser": "2.34.0",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-jsdoc": "25.4.2",
+    "eslint-plugin-unicorn": "20.0.0",
+    "eslint": "7.0.0",
     "web3": "1.2.7"
   },
   "dependencies": {

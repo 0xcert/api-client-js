@@ -105,75 +105,75 @@ export class OrdersController {
 
     for (const action of order.actions) {
       switch (action.kind) {
-        case (ActionKind.CREATE_ASSET): {
-          orderActions.push({
-            kind: ActionsOrderActionKind.CREATE_ASSET,
-            senderId: action.senderId,
-            receiverId: action.receiverId,
-            assetId: action.id,
-            assetImprint: action.imprint,
-            ledgerId: action.assetLedgerId,
-          } as FrameworkActionsOrderAction);
-          paymentAmount = paymentAmount.plus(new BigNumber(this.context.payment.assetCreateCost));
-          break;
-        }
-        case (ActionKind.TRANSFER_ASSET): {
-          orderActions.push({
-            kind: ActionsOrderActionKind.TRANSFER_ASSET,
-            receiverId: action.receiverId,
-            assetId: action.id,
-            ledgerId: action.assetLedgerId,
-            senderId: action.senderId,
-          } as FrameworkActionsOrderAction);
-          paymentAmount = paymentAmount.plus(new BigNumber(this.context.payment.assetTransferCost));
-          break;
-        }
-        case (ActionKind.TRANSFER_VALUE): {
-          orderActions.push({
-            kind: ActionsOrderActionKind.TRANSFER_VALUE,
-            senderId: action.senderId,
-            receiverId: action.receiverId,
-            value: new BigNumber(action.value).multipliedBy(multiplier).toFixed(0),
-            ledgerId: action.valueLedgerId,
-          } as FrameworkActionsOrderAction);
-          paymentAmount = paymentAmount.plus(new BigNumber(this.context.payment.valueTransferCost));
-          break;
-        }
-        case (ActionKind.UPDATE_ASSET_IMPRINT): {
-          orderActions.push({
-            kind: ActionsOrderActionKind.UPDATE_ASSET_IMPRINT,
-            ledgerId: action.assetLedgerId,
-            senderId: action.senderId,
-            assetId: action.id,
-            assetImprint: action.imprint,
-          } as FrameworkActionsOrderAction);
-          paymentAmount = paymentAmount.plus(new BigNumber(this.context.payment.assetUpdateCost));
-          break;
-        }
-        case (ActionKind.SET_ABILITIES): {
-          orderActions.push({
-            kind: ActionsOrderActionKind.SET_ABILITIES,
-            receiverId: action.receiverId,
-            senderId: action.senderId,
-            ledgerId: action.assetLedgerId,
-            abilities: action.abilities,
-          } as FrameworkActionsOrderAction);
-          paymentAmount = paymentAmount.plus(new BigNumber(this.context.payment.setAbilitiesCost));
-          break;
-        }
-        case (ActionKind.DESTROY_ASSET): {
-          orderActions.push({
-            kind: ActionsOrderActionKind.DESTROY_ASSET,
-            senderId: action.senderId,
-            ledgerId: action.assetLedgerId,
-            assetId: action.id,
-          } as FrameworkActionsOrderAction);
-          paymentAmount = paymentAmount.plus(new BigNumber(this.context.payment.assetDestroyCost));
-          break;
-        }
-        default: {
-          break;
-        }
+      case (ActionKind.CREATE_ASSET): {
+        orderActions.push({
+          kind: ActionsOrderActionKind.CREATE_ASSET,
+          senderId: action.senderId,
+          receiverId: action.receiverId,
+          assetId: action.id,
+          assetImprint: action.imprint,
+          ledgerId: action.assetLedgerId,
+        } as FrameworkActionsOrderAction);
+        paymentAmount = paymentAmount.plus(new BigNumber(this.context.payment.assetCreateCost));
+        break;
+      }
+      case (ActionKind.TRANSFER_ASSET): {
+        orderActions.push({
+          kind: ActionsOrderActionKind.TRANSFER_ASSET,
+          receiverId: action.receiverId,
+          assetId: action.id,
+          ledgerId: action.assetLedgerId,
+          senderId: action.senderId,
+        } as FrameworkActionsOrderAction);
+        paymentAmount = paymentAmount.plus(new BigNumber(this.context.payment.assetTransferCost));
+        break;
+      }
+      case (ActionKind.TRANSFER_VALUE): {
+        orderActions.push({
+          kind: ActionsOrderActionKind.TRANSFER_VALUE,
+          senderId: action.senderId,
+          receiverId: action.receiverId,
+          value: new BigNumber(action.value).multipliedBy(multiplier).toFixed(0),
+          ledgerId: action.valueLedgerId,
+        } as FrameworkActionsOrderAction);
+        paymentAmount = paymentAmount.plus(new BigNumber(this.context.payment.valueTransferCost));
+        break;
+      }
+      case (ActionKind.UPDATE_ASSET_IMPRINT): {
+        orderActions.push({
+          kind: ActionsOrderActionKind.UPDATE_ASSET_IMPRINT,
+          ledgerId: action.assetLedgerId,
+          senderId: action.senderId,
+          assetId: action.id,
+          assetImprint: action.imprint,
+        } as FrameworkActionsOrderAction);
+        paymentAmount = paymentAmount.plus(new BigNumber(this.context.payment.assetUpdateCost));
+        break;
+      }
+      case (ActionKind.SET_ABILITIES): {
+        orderActions.push({
+          kind: ActionsOrderActionKind.SET_ABILITIES,
+          receiverId: action.receiverId,
+          senderId: action.senderId,
+          ledgerId: action.assetLedgerId,
+          abilities: action.abilities,
+        } as FrameworkActionsOrderAction);
+        paymentAmount = paymentAmount.plus(new BigNumber(this.context.payment.setAbilitiesCost));
+        break;
+      }
+      case (ActionKind.DESTROY_ASSET): {
+        orderActions.push({
+          kind: ActionsOrderActionKind.DESTROY_ASSET,
+          senderId: action.senderId,
+          ledgerId: action.assetLedgerId,
+          assetId: action.id,
+        } as FrameworkActionsOrderAction);
+        paymentAmount = paymentAmount.plus(new BigNumber(this.context.payment.assetDestroyCost));
+        break;
+      }
+      default: {
+        break;
+      }
       }
     }
 
@@ -190,7 +190,9 @@ export class OrdersController {
     } as FrameworkActionsOrderAction);
 
     // Parse signers into valid API structure.
-    const signers: Signer[] = order.signersIds.map((s) => { return { accountId: s, claim: '' }; });
+    const signers: Signer[] = order.signersIds.map((s) => {
+      return { accountId: s, claim: '' };
+    });
 
     // Check if account is specified as signer and generate its claim.
     const accountSignerIndex = signers.findIndex((s) => s.accountId.toLowerCase() === this.context.provider.accountId.toLowerCase());

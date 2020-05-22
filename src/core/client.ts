@@ -52,6 +52,14 @@ export class Client {
   public authentication: string;
 
   /**
+   * Default pagination configuration.
+   */
+  public defaultPagination: DefaultListingOptions = {
+    skip: 0,
+    limit: 35,
+  };
+
+  /**
    * Accounts controller class instance.
    */
   protected accountsController: AccountsController;
@@ -85,14 +93,6 @@ export class Client {
    * Requests controller class instance.
    */
   protected requestsController: RequestsController;
-
-  /**
-   * Default pagination configuration.
-   */
-  public defaultPagination: DefaultListingOptions = {
-    skip: 0,
-    limit: 35,
-  };
 
   /**
    * Class constructor.
